@@ -13,6 +13,17 @@ export async function schemaValidateProduct(req, res, next) {
     return res.status(422).send(errors);
   }
 
+  try {
+    const productExists = await productsCollection.findOne({
+      name: product.name,
+    });
+    if (productExists) {
+      return res.sendStatus(409);
+    }
+  } catch (error) {
+    return res.sendStatus(401);
+  }
+
   req.productObject = product;
   next();
   return;
