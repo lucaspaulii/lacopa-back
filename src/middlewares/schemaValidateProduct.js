@@ -21,7 +21,7 @@ export async function schemaValidateProduct(req, res, next) {
       return res.sendStatus(409);
     }
   } catch (error) {
-    return res.sendStatus(401);
+    return res.sendStatus(405);
   }
   req.productObject = product;
   next();
