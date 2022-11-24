@@ -9,3 +9,16 @@ export async function postProduct(req, res) {
     return res.sendStatus(401);
   }
 }
+
+export async function fetchProductsHighlights(req, res) {
+  try {
+    const limit = 9;
+    const fetchedProducts = await productsCollection
+    .find()
+    .limit(limit)
+    .toArray();
+    res.send(fetchedProducts);
+  } catch (error) {
+    return res.sendStatus(400);
+  }
+}
