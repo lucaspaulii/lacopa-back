@@ -24,12 +24,12 @@ export async function fetchProductsHighlights(req, res) {
 }
 
 export async function fetchProductsCategories(req, res) {
-    console.log('here')
     try {
         const fetchedProducts = await productsCollection.find().toArray();
         const allCategories = [];
         fetchedProducts.forEach(product => allCategories.push(product.category));
         const categories = [...new Set(allCategories)];
+        return res.send(categories);
     } catch (error) {
         return res.sendStatus(400);
     }
