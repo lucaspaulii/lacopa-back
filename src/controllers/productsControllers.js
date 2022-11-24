@@ -10,10 +10,12 @@ export async function postProduct(req, res) {
   }
 }
 
-export async function fetchProducts(req, res) {
+export async function fetchProductsHighlights(req, res) {
   try {
+    const limit = 6;
     const fetchedProducts = await productsCollection
     .find()
+    .limit(limit)
     .toArray();
     res.send(fetchedProducts);
   } catch (error) {
