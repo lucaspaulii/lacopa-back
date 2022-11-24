@@ -12,7 +12,7 @@ export async function postProduct(req, res) {
 
 export async function fetchProductsHighlights(req, res) {
   try {
-    const limit = 6;
+    const limit = 9;
     const fetchedProducts = await productsCollection
     .find()
     .limit(limit)
