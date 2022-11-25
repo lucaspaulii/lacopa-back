@@ -45,3 +45,15 @@ export async function fetchProductDetails(req, res) {
     return res.sendStatus(400);
   }
 }
+
+export async function fecthCategoryProducts(req, res) {
+  const category = req.params.category;
+  let categoryPadronized = category.charAt(0).toUpperCase() + category.slice(1);
+
+  try {
+    const products = await productsCollection.find({ category: categoryPadronized}).toArray();
+    return res.send(products);
+  } catch (error) {
+    return res.sendStatus(400);
+  }
+}
