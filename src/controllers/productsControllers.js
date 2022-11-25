@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { productsCollection } from "../database/db.js";
 
 export async function postProduct(req, res) {
@@ -17,7 +18,7 @@ export async function fetchProductsHighlights(req, res) {
     .find()
     .limit(limit)
     .toArray();
-    res.send(fetchedProducts);
+    return res.send(fetchedProducts);
   } catch (error) {
     return res.sendStatus(400);
   }
@@ -33,4 +34,14 @@ export async function fetchProductsCategories(req, res) {
     } catch (error) {
         return res.sendStatus(400);
     }
+}
+
+export async function fetchProductDetails(req, res) {
+  try {
+    const  { productId } = req.params;
+    const productDetails = await productsCollection.find({_id: ObjectId(productId)}).toArray();
+    res.send(productDetails);
+  } catch (error) {
+    return res.sendStatus(400);
+  }
 }
