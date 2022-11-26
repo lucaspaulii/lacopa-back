@@ -12,3 +12,5 @@ try {
 
 const db = mongoClient.db("lacopa");
 export const productsCollection = db.collection("products");
+export const usersCollection = db.collection("users");
+export const sessionsCollection = db.collection("sessions");
