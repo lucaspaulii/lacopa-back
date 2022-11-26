@@ -36,11 +36,12 @@ export async function fetchProductsCategories(req, res) {
     }
 }
 
-export async function fetchProductDetails(req, res) {
+export async function fetchProductDetails(req, res, next) {
   try {
     const  { productId } = req.params;
     const productDetails = await productsCollection.find({_id: ObjectId(productId)}).toArray();
     res.send(productDetails);
+    next();
   } catch (error) {
     return res.sendStatus(400);
   }
@@ -53,6 +54,18 @@ export async function fecthCategoryProducts(req, res) {
   try {
     const products = await productsCollection.find({ category: categoryPadronized}).toArray();
     return res.send(products);
+  } catch (error) {
+    return res.sendStatus(400);
+  }
+}
+
+export async function fetchRelatedProducts(req, res) {
+  try {
+    const limit = 4;
+    const { productId } = req.params;
+    const productDetails = await productsCollection.find({_id: ObjectId(productId)}).toArray();
+    const relatedProducts = await productsCollection.find({category: productDetails[0].category}).limit(limit).toArray();
+    return res.send(relatedProducts.slice(1));
   } catch (error) {
     return res.sendStatus(400);
   }
