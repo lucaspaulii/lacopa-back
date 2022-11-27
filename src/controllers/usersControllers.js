@@ -27,3 +27,18 @@ export async function postSignIn(req, res) {
     res.sendStatus(400);
   }
 }
+
+export async function getUserInfo(req, res) {
+  const userID = req.userID;
+
+  try {
+    const userInfo = await usersCollection.findOne({ _id: userID });
+    if (!userInfo) {
+      return res.sendStatus(404);
+    }
+    delete userInfo.password;
+    return res.send(userInfo);
+  } catch (error) {
+    return res.sendStatus(401);
+  }
+}
