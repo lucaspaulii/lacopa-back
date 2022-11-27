@@ -91,11 +91,10 @@ export async function addShoppingCart(req, res) {
     
     const shoppingCart = await cartCollection.findOne({ _id: userID });
       if (!shoppingCart.products) {
-        const createCart = {$addToSet: { products: body.products}}
+        const createCart = {$push: { products: body}}
         const createdCart = await cartCollection.updateOne(filter, createCart); }
       else {
-        const updateCart = await cartCollection.findOneAndUpdate(filter, {$addToSet: {products: body.products}})
-        /* await cartCollection.findOneAndUpdate(filter, {$push: body}) */
+        const updateCart = await cartCollection.findOneAndUpdate(filter, {$push: {products: body}})
       }
       return res.sendStatus(200);
     }
