@@ -6,6 +6,7 @@ export async function postSignUp(req, res) {
   try {
     await usersCollection.insertOne(user);
     await cartCollection.insertOne(user);
+    res.sendStatus(200);
   } catch (error) {
     res.sendStatus(400);
   }
