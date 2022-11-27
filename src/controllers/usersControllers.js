@@ -1,11 +1,11 @@
-import { sessionsCollection, usersCollection } from "../database/db.js";
+import { sessionsCollection, usersCollection, cartCollection } from "../database/db.js";
 
 export async function postSignUp(req, res) {
   const user = req.user;
 
   try {
     await usersCollection.insertOne(user);
-    res.sendStatus(201);
+    await cartCollection.insertOne(user);
   } catch (error) {
     res.sendStatus(400);
   }

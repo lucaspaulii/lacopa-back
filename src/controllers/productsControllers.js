@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { productsCollection } from "../database/db.js";
+import { productsCollection, cartCollection, usersCollection } from "../database/db.js";
 
 export async function postProduct(req, res) {
   const productObject = req.productObject;
@@ -69,4 +69,17 @@ export async function fetchRelatedProducts(req, res) {
   } catch (error) {
     return res.sendStatus(400);
   }
+}
+
+export async function fetchShoppingCart(req, res) {
+  const userID = req.userID; 
+
+  try {
+    const shoppingCart = await cartCollection.findOne({ _id: userID });
+    if (!shoppingCart) {
+      return res.sendStatus(404);
+    }
+    return res.send(shoppingCart.items);
+  } catch (error) {
+    return res.sendStatus(401);}
 }
