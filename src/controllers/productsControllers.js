@@ -99,6 +99,6 @@ export async function addShoppingCart(req, res) {
       return res.sendStatus(200);
     }
    catch (error) {
-    return res.sendStatus(401);}
+    return res.sendStatus(400);}
 
 }
