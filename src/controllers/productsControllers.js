@@ -124,6 +124,7 @@ export async function resetShoppingCart (req, res) {
   }
   catch (error) {
     return res.sendStatus(400);}
+  }
   
 export async function fecthSearchedProducts(req, res) {
   const {searchInput} = req.params;
