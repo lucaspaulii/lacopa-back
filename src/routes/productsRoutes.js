@@ -12,6 +12,6 @@ router.get("/products/:productId", fetchProductDetails);
 router.get("/products/:productId/related", fetchRelatedProducts);
 router.get("/category/:category", fecthCategoryProducts);
 router.get("/cart", validateToken, fetchShoppingCart );
-router.get("/cart/details", fetchProductCart );
+router.get("/cart/:productId", fetchProductCart );
 router.post("/cart", validateToken, addShoppingCart);
 export default router;
