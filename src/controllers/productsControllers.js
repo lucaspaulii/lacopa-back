@@ -105,7 +105,7 @@ export async function addShoppingCart(req, res) {
 
 export async function fetchProductCart(req, res) {
   try {
-    const  { productId } = req.body;
+    const  { productId } = req.params;
     const productDetails = await productsCollection.find({_id: ObjectId(productId)}).toArray();
     res.send(productDetails);
   } catch (error) {
