@@ -113,6 +113,18 @@ export async function fetchProductCart(req, res) {
   }
 }
 
+export async function resetShoppingCart (req, res) {
+  const userID = req.userID; 
+  const body = req.body;
+  const filter = { _id: userID }
+  const updateDocument = {$set: {products: []}};
+  try {
+    const resetCart = await cartCollection.updateOne(filter, updateDocument)
+    return res.sendStatus(200);
+  }
+  catch (error) {
+    return res.sendStatus(400);}
+  
 export async function fecthSearchedProducts(req, res) {
   const {searchInput} = req.params;
   function capitalizeFirstLetter(string) {
@@ -128,5 +140,4 @@ export async function fecthSearchedProducts(req, res) {
   } catch (error) {
     return res.sendStatus(400);
   }
-  
 }
