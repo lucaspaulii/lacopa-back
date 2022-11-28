@@ -1,5 +1,17 @@
 import { Router } from "express";
-import { postProduct, fetchProductsHighlights, fetchProductsCategories, fecthCategoryProducts, fetchProductDetails, fetchRelatedProducts, fetchShoppingCart, addShoppingCart, fetchProductCart, resetShoppingCart } from "../controllers/productsControllers.js";
+import {
+  postProduct,
+  fetchProductsHighlights,
+  fetchProductsCategories,
+  fecthCategoryProducts,
+  fetchProductDetails,
+  fetchRelatedProducts,
+  fetchShoppingCart,
+  addShoppingCart,
+  fetchProductCart,
+  fecthSearchedProducts,
+  resetShoppingCart
+} from "../controllers/productsControllers.js";
 import { schemaValidateProduct } from "../middlewares/schemaValidateProduct.js";
 import { validateToken } from "../middlewares/validateToken.js";
 
@@ -13,6 +25,9 @@ router.get("/products/:productId/related", fetchRelatedProducts);
 router.get("/category/:category", fecthCategoryProducts);
 router.get("/cart", validateToken, fetchShoppingCart );
 router.get("/cart/:productId", fetchProductCart );
+router.get("/cart", validateToken, fetchShoppingCart);
+router.get("/cart/details", fetchProductCart);
+router.get("/product/:searchInput", fecthSearchedProducts);
 router.post("/cart", validateToken, addShoppingCart);
 router.put("/cart", validateToken, resetShoppingCart)
 export default router;

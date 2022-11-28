@@ -124,4 +124,20 @@ export async function resetShoppingCart (req, res) {
   }
   catch (error) {
     return res.sendStatus(400);}
+  
+export async function fecthSearchedProducts(req, res) {
+  const {searchInput} = req.params;
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  try {
+    const lowerCaseSearchInput = searchInput.toLowerCase()
+    const searchedProducts1 = await productsCollection.find({name: new RegExp(lowerCaseSearchInput)}).toArray();
+    const upperCaseSearchInput = capitalizeFirstLetter(lowerCaseSearchInput);
+    const searchedProducts2 = await productsCollection.find({name: new RegExp(upperCaseSearchInput)}).toArray();
+    const searchedProducts = [...searchedProducts1, searchedProducts2]
+    res.send(searchedProducts)
+  } catch (error) {
+    return res.sendStatus(400);
+  }
 }
