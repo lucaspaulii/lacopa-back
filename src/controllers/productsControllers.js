@@ -102,3 +102,13 @@ export async function addShoppingCart(req, res) {
     return res.sendStatus(400);}
 
 }
+
+export async function fetchProductCart(req, res) {
+  try {
+    const  { productId } = req.body;
+    const productDetails = await productsCollection.find({_id: ObjectId(productId)}).toArray();
+    res.send(productDetails);
+  } catch (error) {
+    return res.sendStatus(400);
+  }
+}
